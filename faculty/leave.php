@@ -99,7 +99,7 @@
 					6. Alternate Arrangements: <br>
 
 					<textarea name="" placeholder="For theory" cols="35" rows="4"></textarea> <textarea placeholder="For lab" name="" cols="35" rows="4"></textarea><br>
-					7. Send Notification to: (usersnames, seperated with commas) <br>
+					7. Send Notification to: <br>
 					<select multiple style="width:500px;font-size:14px;" name="people[]" id="friend_list">
 						<?php
 							$department		=		mysql_real_escape_string($data->department);
