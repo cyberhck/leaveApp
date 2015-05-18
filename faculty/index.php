@@ -10,7 +10,7 @@
 		if(mysql_num_rows($query)==1){
 			setcookie("username",$username);
 			setcookie("password",$password);
-			header("location:leave.php");
+			header("location:show.php");
 		}else{
 			//redirect here itself, saying password mismatch
 			header("location:index.php?error=passwordMismatch");
