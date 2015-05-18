@@ -55,7 +55,7 @@
 		</script>
 	</head>
 	<body>
-		<a href="logout.php">Logout</a> / <a href="myleaves.php">My Leaves</a> / <a href="leave.php">Apply a leave</a>
+	<a href="logout.php">Logout</a>
 		<table id="example" class="display" cellspacing="0" width="100%">
 		<thead>
 			<tr>
@@ -83,15 +83,15 @@
 		</tfoot>
 <?php
 	$username			=		$_COOKIE['username'];
-	require_once("functions.php");
 	require_once("../config.php");
 	$DB_INFO['host']	=	$DB_HOST;
 	$DB_INFO['user']	=	$DB_USER;
 	$DB_INFO['pass']	=	$DB_PASS;
 	$DB_INFO['name']	=	$DB_NAME;
 	$con				=	mysql_connect($DB_HOST,$DB_USER,$DB_PASS);
-	$id					=	getFacultyIdFromUsername($DB_INFO,$username);
-	$sql				=	"SELECT tags.id,faculty.fullname,leaves.applicationFor,leaves.leaveFrom,leaves.leaveTo,leaves.leaveAddr,leaves.alternateTheory,leaves.alternateLab,tags.approved FROM `$DB_NAME`.`tags`,`$DB_NAME`.`faculty`,`$DB_NAME`.`leaves` WHERE tags.faculty=$id AND leaves.id=tags.leaveId AND leaves.user=faculty.id;";
+	//faculty should be respective department.
+	$sql				=	"SELECT leaves.id,leaves.hodApproval,leaves.principalApproval,faculty.fullname,leaves.applicationFor,leaves.leaveFrom,leaves.leaveTo,leaves.leaveAddr,leaves.alternateTheory,leaves.alternateLab,tags.approved FROM `$DB_NAME`.`tags`,`$DB_NAME`.`faculty`,`$DB_NAME`.`leaves` WHERE leaves.id=tags.leaveId AND leaves.user=faculty.id AND tags.approved!='pending' AND tags.approved!='false' GROUP BY leaves.id;";
+	//die($sql);
 	$query				=	mysql_query($sql);?>
 			<tbody>
 	<?php
@@ -105,10 +105,10 @@
 					<td><?php echo $data->leaveAddr; ?></td>
 					<td><?php echo $data->alternateTheory; ?></td>
 					<td><?php echo $data->alternateLab ?></td>
-					<?php if($data->approved=="pending"){
+					<?php if($data->hodApproval=="pending"){
 						?><td><a onclick="approve(<?php echo $data->id; ?>)" data-id="<?php echo $data->id; ?>" href="#">Approve</a> / <a data-id="<?php echo $data->id; ?>" onclick="reject(<?php echo $data->id; ?>)" href="#">Reject</a></td><?php
 					}else{
-						?><td><?php if($data->approved=="true"){echo "Approved";}else{echo "Rejected";} ?></td><?php
+						?><td><?php if($data->hodApproval=="true"){echo "Approved";}else{echo "Rejected";} ?></td><?php
 						}?>
 					
 				</tr>

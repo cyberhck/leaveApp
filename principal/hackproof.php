@@ -4,7 +4,7 @@
 			$con			=		mysql_connect($DB_HOST, $DB_USER, $DB_PASS);
 			$username		=		mysql_real_escape_string($_COOKIE['username']);
 			$password		=		mysql_real_escape_string($_COOKIE['password']);
-			$sql			=		"SELECT * FROM `$DB_NAME`.`faculty` WHERE `username`='$username' AND `password`='$password';";
+			$sql			=		"SELECT * FROM `$DB_NAME`.`principal` WHERE `username`='$username' AND `password`='$password';";
 			$query			=		mysql_query($sql);
 			if(mysql_num_rows($query)==1){
 				//don't do anything.

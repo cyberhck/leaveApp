@@ -1,0 +1,1 @@
+<?php setcookie("username","");setcookie("password",""); header("location:/about.php?loggedOut");?>
